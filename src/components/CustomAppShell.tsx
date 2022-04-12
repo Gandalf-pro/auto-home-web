@@ -70,30 +70,6 @@ const CustomAppShell = () => {
 							to="/automations"
 						/>
 					</Navbar.Section>
-					<Navbar.Section>
-						<Menu
-							withArrow
-							position="top"
-							placement="end"
-							sx={{ width: '100%' }}
-							control={<NavbarUser />}
-						>
-							<Menu.Item
-								component={Link}
-								to="/settings"
-								icon={<Settings size={16} />}
-							>
-								Settings
-							</Menu.Item>
-							<Menu.Item
-								color="red"
-								onClick={() => {}}
-								icon={<Logout size={16} />}
-							>
-								Logout
-							</Menu.Item>
-						</Menu>
-					</Navbar.Section>
 				</Navbar>
 			}
 			header={
