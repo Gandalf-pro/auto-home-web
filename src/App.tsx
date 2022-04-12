@@ -1,45 +1,54 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import {
+	ColorScheme,
+	ColorSchemeProvider,
+	MantineProvider,
+} from '@mantine/core';
+import { useColorScheme, useLocalStorage } from '@mantine/hooks';
+import { ModalsProvider } from '@mantine/modals';
+import { NotificationsProvider } from '@mantine/notifications';
+import { BrowserRouter as Router } from 'react-router-dom';
+import CustomAppShell from './components/CustomAppShell';
+import AutomationConditionSelectorModal from './modals/AutomationConditionSelectorModal';
+import SpecialConditionSelectorModal from './modals/SpecialConditionSelectorModal';
 
 function App() {
-  const [count, setCount] = useState(0)
+	const preferredColorScheme = useColorScheme();
+	// const preferredColorScheme = 'dark';
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
+	const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
+		key: 'mantine-color-scheme',
+		defaultValue: preferredColorScheme,
+		// getInitialValueInEffect: true,
+	});
+
+	// const [colorScheme, setColorScheme] =
+	// 	useState<ColorScheme>(preferredColorScheme);
+	const toggleColorScheme = (value?: ColorScheme) =>
+		setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+
+	return (
+		<Router>
+			<ColorSchemeProvider
+				colorScheme={colorScheme}
+				toggleColorScheme={toggleColorScheme}
+			>
+				<MantineProvider theme={{ colorScheme }}>
+					<NotificationsProvider>
+						<ModalsProvider
+							modals={{
+								automationConditionSelector:
+									AutomationConditionSelectorModal as any,
+								specialConditionSelector:
+									SpecialConditionSelectorModal as any,
+							}}
+						>
+							<CustomAppShell />
+						</ModalsProvider>
+					</NotificationsProvider>
+				</MantineProvider>
+			</ColorSchemeProvider>
+		</Router>
+	);
 }
 
-export default App
+export default App;
