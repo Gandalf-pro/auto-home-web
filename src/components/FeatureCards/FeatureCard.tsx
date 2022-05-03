@@ -53,7 +53,7 @@ const FeatureCard = ({ feature }: FeatureCardProps) => {
 						</Group>
 					</Tooltip>
 				</Group>
-				<Group spacing="xs">
+				{/* <Group spacing="xs">
 					<Text size="xl" weight={500}>
 						Device:
 					</Text>
@@ -62,7 +62,7 @@ const FeatureCard = ({ feature }: FeatureCardProps) => {
 							<Adjustments />
 						</ActionIcon>
 					</Tooltip>
-				</Group>
+				</Group> */}
 			</Group>
 			<div
 				style={{

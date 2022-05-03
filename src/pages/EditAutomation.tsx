@@ -165,7 +165,7 @@ const EditAutomation = () => {
 					{...form.getInputProps('name')}
 				/>
 				<NumberInput
-					label="Timeout im minutes"
+					label="Timeout in minutes"
 					placeholder="10 minutes"
 					min={0}
 					{...form.getInputProps('timeout')}
