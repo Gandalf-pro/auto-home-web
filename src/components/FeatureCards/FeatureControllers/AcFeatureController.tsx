@@ -22,10 +22,10 @@ export interface AcFeatureControllerProps {
 }
 
 export const FanModes = {
-	auto: '1',
-	low: '5',
-	med: '9',
-	high: '11',
+	auto: '0',
+	low: '1',
+	med: '2',
+	high: '3',
 };
 export const ReverseFanModes = {
 	'1': 'auto',
