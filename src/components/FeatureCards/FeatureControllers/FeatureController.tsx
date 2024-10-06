@@ -5,6 +5,7 @@ import AcFeatureController from './AcFeatureController';
 import BlindsFeatureController from './BlindsFeatureController';
 import LedFeatureController from './LedFeatureController';
 import LightLevelFeature from './LightLevelFeature';
+import LightFeatureController from './LightFeatureController';
 
 export interface FeatureControllerProps {
 	feature: FeatureInterface & { device: string; room: string };
@@ -31,6 +32,13 @@ const FeatureController = ({ feature, onValues }: FeatureControllerProps) => {
 			case 'LedFeature':
 				return (
 					<LedFeatureController
+						feature={feature}
+						onValues={onValues}
+					/>
+				);
+			case 'LightFeature':
+				return (
+					<LightFeatureController
 						feature={feature}
 						onValues={onValues}
 					/>
