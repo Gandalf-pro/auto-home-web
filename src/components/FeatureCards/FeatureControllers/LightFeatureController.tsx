@@ -18,7 +18,7 @@ const LightFeatureController = ({
 	const notifications = useNotifications();
 	const data: {} = feature.data as any;
 	const execute = useStoreActions((actions) => actions.data.execute);
-	const [toggleValue, toggle] = useToggle(false, [true, false]);
+	const [toggleValue, toggle] = useToggle(data.state, [true, false]);
 	const [debounced] = useDebouncedValue(toggleValue, onValues ? 10 : 1000);
 
 	useEffect(() => {
@@ -73,7 +73,7 @@ const LightFeatureController = ({
 			<Switch
 				size="md"
 				label="Power"
-				value={toggleValue ? 'on' : 'off'}
+				checked={toggleValue}
 				onChange={() => {
 					toggle();
 				}}
