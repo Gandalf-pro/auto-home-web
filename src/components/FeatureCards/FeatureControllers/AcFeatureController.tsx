@@ -144,12 +144,16 @@ const AcFeatureController = ({
 				<Switch
 					size="md"
 					label="Power"
-					{...form.getInputProps('power')}
+					{...form.getInputProps('power', {
+						type: 'checkbox',
+					})}
 				/>
 				<Switch
 					size="md"
 					label="Swing"
-					{...form.getInputProps('swing')}
+					{...form.getInputProps('swing', {
+						type: 'checkbox',
+					})}
 				/>
 			</Group>
 			<Group grow>
