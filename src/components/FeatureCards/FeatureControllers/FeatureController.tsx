@@ -6,6 +6,7 @@ import BlindsFeatureController from './BlindsFeatureController';
 import LedFeatureController from './LedFeatureController';
 import LightLevelFeature from './LightLevelFeature';
 import LightFeatureController from './LightFeatureController';
+import ALedFeature from './ALedFeature';
 
 export interface FeatureControllerProps {
 	feature: FeatureInterface & { device: string; room: string };
@@ -15,6 +16,8 @@ export interface FeatureControllerProps {
 const FeatureController = ({ feature, onValues }: FeatureControllerProps) => {
 	const selectedFeature = useMemo(() => {
 		switch (feature.type) {
+			case 'ALedFeature':
+				return <ALedFeature feature={feature} onValues={onValues} />;
 			case 'AcFeature':
 				return (
 					<AcFeatureController
