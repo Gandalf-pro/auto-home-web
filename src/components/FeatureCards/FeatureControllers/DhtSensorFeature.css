@@ -1,42 +1,83 @@
 .sensor-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
 }
 
 .gauge-container {
-  width: 200px;
-  height: 100px;
-  background-color: #f0f0f0;
-  border-radius: 100px 100px 0 0;
-  overflow: hidden;
-  position: relative;
+	width: 200px;
+	height: 100px;
+	border-radius: 100px 100px 0 0;
+	overflow: hidden;
+	position: relative;
 }
 
 .gauge {
-  width: 100%;
-  height: 100%;
-  background-color: var(--color, #3498db);
-  transform-origin: center bottom;
-  transform: rotate(calc(1.8deg * (var(--percentage, 0) - 50)));
-  transition: transform 0.3s ease-out;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
 }
 
-.gauge::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: conic-gradient(
-    from -90deg,
-    var(--color, #3498db) 0deg,
-    var(--color, #3498db) calc(3.6deg * var(--percentage, 0)),
-    transparent calc(3.6deg * var(--percentage, 0)),
-    transparent 360deg
-  );
-  mask: radial-gradient(transparent 65%, black 66%);
-  -webkit-mask: radial-gradient(transparent 65%, black 66%);
+.gauge-background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: var(--color, #3498db);
+	border-radius: 100px 100px 0 0;
+}
+
+.gauge-fill {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: conic-gradient(
+		from -90deg,
+		var(--color, #3498db) 0deg,
+		var(--color, #3498db) calc(3.6deg * var(--percentage, 0)),
+		transparent calc(3.6deg * var(--percentage, 0)),
+		transparent 360deg
+	);
+	mask: radial-gradient(transparent 65%, black 66%);
+	-webkit-mask: radial-gradient(transparent 65%, black 66%);
+}
+
+.gauge-needle {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 4px;
+	height: 50%;
+	border-radius: 36px;
+	background-color: #333;
+	transform-origin: bottom center;
+	transform: translateX(-50%) rotate(var(--rotation, -90deg));
+	transition: transform 0.3s ease-out;
+	z-index: 10;
+}
+
+.gauge-ticks {
+	position: absolute;
+	border-radius: 36px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.gauge-tick {
+	position: absolute;
+	border-radius: 36px;
+	bottom: 0;
+	left: 50%;
+	width: 2px;
+	height: 10px;
+	background-color: #333;
+	transform-origin: center bottom;
+	transform: translateX(-50%) rotate(var(--tick-rotation, 0deg));
 }

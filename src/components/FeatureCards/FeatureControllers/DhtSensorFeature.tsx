@@ -25,12 +25,13 @@ const DhtSensorFeature = ({ feature }: DhtSensorFeatureProps) => {
 		switch (type) {
 			case 'temp':
 			case 'heatIndex':
-				hue = 240 - (value / 50) * 240;
+				hue = 240 - (value / 30) * 240;
 				break;
 			case 'humidity':
-				hue = 240 - (value / 100) * 240;
+				hue = 240 - (value / 70) * 240;
 				break;
 		}
+		hue = Math.max(hue, 0);
 		return `hsl(${hue}, 100%, 50%)`;
 	};
 
@@ -41,6 +42,8 @@ const DhtSensorFeature = ({ feature }: DhtSensorFeatureProps) => {
 	) => {
 		const percentage = (value / max) * 100;
 		const color = getGaugeColor(value, type);
+		const rotation = Math.max(Math.min(percentage * 1.8 - 90, 90), -90); // Calculate rotation for the needle
+
 		return (
 			<div className="gauge-container">
 				<div
@@ -49,9 +52,29 @@ const DhtSensorFeature = ({ feature }: DhtSensorFeatureProps) => {
 						{
 							'--percentage': `${percentage}%`,
 							'--color': color,
+							'--rotation': `${rotation}deg`,
 						} as React.CSSProperties
 					}
-				></div>
+				>
+					<div className="gauge-background"></div>
+					<div className="gauge-fill"></div>
+					<div className="gauge-needle"></div>
+					<div className="gauge-ticks">
+						{[0, 25, 50, 75, 100].map((tick) => (
+							<div
+								key={tick}
+								className="gauge-tick"
+								style={
+									{
+										'--tick-rotation': `${
+											tick * 1.8 - 90
+										}deg`,
+									} as React.CSSProperties
+								}
+							></div>
+						))}
+					</div>
+				</div>
 			</div>
 		);
 	};
