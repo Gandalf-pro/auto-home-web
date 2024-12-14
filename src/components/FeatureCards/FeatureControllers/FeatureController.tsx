@@ -7,6 +7,7 @@ import LedFeatureController from './LedFeatureController';
 import LightLevelFeature from './LightLevelFeature';
 import LightFeatureController from './LightFeatureController';
 import ALedFeature from './ALedFeature';
+import DhtSensorFeature from './DhtSensorFeature';
 
 export interface FeatureControllerProps {
 	feature: FeatureInterface & { device: string; room: string };
@@ -18,6 +19,10 @@ const FeatureController = ({ feature, onValues }: FeatureControllerProps) => {
 		switch (feature.type) {
 			case 'ALedFeature':
 				return <ALedFeature feature={feature} onValues={onValues} />;
+			case 'DhtSensorFeature':
+				return (
+					<DhtSensorFeature feature={feature} onValues={onValues} />
+				);
 			case 'AcFeature':
 				return (
 					<AcFeatureController
