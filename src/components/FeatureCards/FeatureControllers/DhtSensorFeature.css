@@ -1,0 +1,42 @@
+.sensor-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.gauge-container {
+  width: 200px;
+  height: 100px;
+  background-color: #f0f0f0;
+  border-radius: 100px 100px 0 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.gauge {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color, #3498db);
+  transform-origin: center bottom;
+  transform: rotate(calc(1.8deg * (var(--percentage, 0) - 50)));
+  transition: transform 0.3s ease-out;
+}
+
+.gauge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: conic-gradient(
+    from -90deg,
+    var(--color, #3498db) 0deg,
+    var(--color, #3498db) calc(3.6deg * var(--percentage, 0)),
+    transparent calc(3.6deg * var(--percentage, 0)),
+    transparent 360deg
+  );
+  mask: radial-gradient(transparent 65%, black 66%);
+  -webkit-mask: radial-gradient(transparent 65%, black 66%);
+}
