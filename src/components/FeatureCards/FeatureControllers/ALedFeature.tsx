@@ -1,4 +1,4 @@
-import { ColorInput, Group, Select, Slider, Text } from '@mantine/core';
+import { ColorInput, Group, Select, Slider, Switch, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useDebouncedValue, useDidUpdate } from '@mantine/hooks';
 import { useNotifications } from '@mantine/notifications';
@@ -31,6 +31,9 @@ export enum AcModes {
 
 const acModesArr = Object.values(AcModes);
 
+const generateRandomColor = () =>
+	`#${Math.floor(Math.random() * 16777215).toString(16)}`;
+
 export interface ALedFeatureDataInterface {
 	animationMode: number | string;
 	speed: number;
@@ -41,8 +44,30 @@ export interface ALedFeatureDataInterface {
 
 const animationModeSelectorData = [
 	{ value: String(AcModes.kAnimationModeNone), label: 'Close' },
-	{ value: String(AcModes.kAnimationModeFade), label: 'Fade' },
 	{ value: String(AcModes.kAnimationModeStatic), label: 'Static' },
+	{ value: String(AcModes.kAnimationModeFade), label: 'Fade' },
+	{ value: String(AcModes.kAnimationModeRainbow), label: 'Rainbow' },
+	{ value: String(AcModes.kAnimationModeFire), label: 'Fire' },
+	{ value: String(AcModes.kAnimationModeBreathe), label: 'Breathe' },
+	{ value: String(AcModes.kAnimationModeBreathFade), label: 'Breath Fade' },
+	{ value: String(AcModes.kAnimationModeColorWipe), label: 'Color Wipe' },
+	{
+		value: String(AcModes.kAnimationModeTheaterChase),
+		label: 'Theater Chase',
+	},
+	{
+		value: String(AcModes.kAnimationModeTheaterChaseRainbow),
+		label: 'Theater Chase Rainbow',
+	},
+	{
+		value: String(AcModes.kAnimationModeRunningLights),
+		label: 'Running Lights',
+	},
+	{ value: String(AcModes.kAnimationModeTwinkle), label: 'Twinkle' },
+	{
+		value: String(AcModes.kAnimationModeTwinkleRainbow),
+		label: 'Twinkle Rainbow',
+	},
 ];
 
 const ALedFeature = ({ feature, onValues }: ALedFeatureProps) => {
@@ -116,9 +141,35 @@ const ALedFeature = ({ feature, onValues }: ALedFeatureProps) => {
 		}
 	}, [debounced]);
 
+	const isLightOn =
+		form.values.animationMode !== String(AcModes.kAnimationModeNone);
+
 	return (
 		<form>
 			<Group>
+				<Switch
+					checked={isLightOn}
+					onChange={(event) => {
+						const checked = event.currentTarget.checked;
+						if (checked) {
+							form.setFieldValue(
+								'animationMode',
+								String(AcModes.kAnimationModeStatic)
+							);
+							if (form.values.startColor === '#000000') {
+								form.setFieldValue(
+									'startColor',
+									generateRandomColor()
+								);
+							}
+						} else {
+							form.setFieldValue(
+								'animationMode',
+								String(AcModes.kAnimationModeNone)
+							);
+						}
+					}}
+				/>
 				<Select
 					placeholder="Mode"
 					data={animationModeSelectorData as any}
