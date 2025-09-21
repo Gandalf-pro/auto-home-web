@@ -3,7 +3,7 @@ import { useForm } from '@mantine/form';
 import { useDebouncedValue, useDidUpdate } from '@mantine/hooks';
 import { useNotifications } from '@mantine/notifications';
 import { useEffect } from 'react';
-import { Check, X } from 'tabler-icons-react';
+import { Check, Dice, X } from 'tabler-icons-react';
 import { useStoreActions } from '../../../store';
 import { FeatureInterface } from '../../../store/data';
 import shallowCompare from '../../../utils/shallowCompare';
@@ -179,10 +179,52 @@ const ALedFeature = ({ feature, onValues }: ALedFeatureProps) => {
 			<Group grow my="sm">
 				<ColorInput
 					placeholder="Start color"
+					rightSection={
+						<Dice
+							size={16}
+							style={{
+								cursor: 'pointer',
+								transition: 'transform 0.2s ease',
+							}}
+							onMouseEnter={(e) => {
+								e.currentTarget.style.transform = 'scale(1.2)';
+							}}
+							onMouseLeave={(e) => {
+								e.currentTarget.style.transform = 'scale(1)';
+							}}
+							onClick={() =>
+								form.setFieldValue(
+									'startColor',
+									generateRandomColor()
+								)
+							}
+						/>
+					}
 					{...form.getInputProps('startColor')}
 				/>
 				<ColorInput
 					placeholder="End color"
+					rightSection={
+						<Dice
+							size={16}
+							style={{
+								cursor: 'pointer',
+								transition: 'transform 0.2s ease',
+							}}
+							onMouseEnter={(e) => {
+								e.currentTarget.style.transform = 'scale(1.2)';
+							}}
+							onMouseLeave={(e) => {
+								e.currentTarget.style.transform = 'scale(1)';
+							}}
+							onClick={() =>
+								form.setFieldValue(
+									'endColor',
+									generateRandomColor()
+								)
+							}
+						/>
+					}
 					{...form.getInputProps('endColor')}
 				/>
 			</Group>
