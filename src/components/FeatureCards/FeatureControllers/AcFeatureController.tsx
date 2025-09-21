@@ -78,7 +78,7 @@ const AcFeatureController = ({
 		}
 	}, []);
 
-	const [debounced] = useDebouncedValue(form.values, onValues ? 10 : 1500);
+	const [debounced] = useDebouncedValue(form.values, onValues ? 10 : 150);
 	useDidUpdate(async () => {
 		if (onValues) {
 			onValues(debounced);

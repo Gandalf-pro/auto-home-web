@@ -57,7 +57,7 @@ const LedFeatureController = ({
 		true,
 		false,
 	]);
-	const [debounced] = useDebouncedValue(value, onValues ? 10 : 1000);
+	const [debounced] = useDebouncedValue(value, onValues ? 10 : 150);
 
 	useEffect(() => {
 		if (onValues) {

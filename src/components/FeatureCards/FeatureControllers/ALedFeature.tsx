@@ -64,7 +64,7 @@ const ALedFeature = ({ feature, onValues }: ALedFeatureProps) => {
 		}
 	}, []);
 
-	const [debounced] = useDebouncedValue(form.values, onValues ? 10 : 1500);
+	const [debounced] = useDebouncedValue(form.values, onValues ? 10 : 150);
 	useDidUpdate(async () => {
 		console.log('debounced', debounced);
 

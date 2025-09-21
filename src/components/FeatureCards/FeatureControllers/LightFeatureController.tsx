@@ -20,7 +20,7 @@ const LightFeatureController = ({
 	const execute = useStoreActions((actions) => actions.data.execute);
 	// @ts-expect-error
 	const [toggleValue, toggle] = useToggle(data.state === true, [true, false]);
-	const [debounced] = useDebouncedValue(toggleValue, onValues ? 10 : 1000);
+	const [debounced] = useDebouncedValue(toggleValue, onValues ? 10 : 150);
 
 	useEffect(() => {
 		onValues?.({
